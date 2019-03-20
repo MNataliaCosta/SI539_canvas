@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Canvas</title>
+    <script type="text/javascript">
+      // var canvas, ctx, flag = false,
+        // prevX = 0,
+        // currX = 0,
+        // prevY = 0,
+        // currY = 0,
+        // dot_flag = false;
+
+      function init() {
+      //Getting all the elements
+        var htmlCanvas = document.getElementById("canvas");
+        var ctx = htmlCanvas.getContext("2d");
+        ctx.canvas.width  = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
+
+        htmlCanvas.addEventListener("mousemove", function (e) {
+          findxy("move", e)}, false);
+        htmlCanvas.addEventListener("mousedown", function (e) {
+          findxy("down", e)}, false);
+        htmlCanvas.addEventListener("mouseup", function (e) {
+            findxy("up", e)}, false);
+        htmlCanvas.addEventListener("mouseout", function (e) {
+            findxy("out", e)}, false);
+      }
+      // add listerners to touch as well, not just mouse
+
+      // define function to findxy
+
+      //define function to change colors
+
+      function draw(){
+        //The actual drawing
+        ctx.beginPath();
+        ctx.moveTo(prevX, prevY);
+        ctx.lineTo(currX, currY);
+        ctx.strokeStyle = "red"; //make it possible to change to other colors
+        ctx.lineWidth = 1; //make it possible to change line width
+        ctx.stroke();
+        ctx.closePath();
+      }
+
+       //define function to erase using space bar
+
+    </script>
+  </head>
+  <body>
+    <canvas id="canvas" style="border: 1px solid #a3a5a8;"></canvas>
+  </body>
+</html>
