@@ -4,52 +4,114 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <title>Canvas</title>
-    <script type="text/javascript">
-      // var canvas, ctx, flag = false,
-        // prevX = 0,
-        // currX = 0,
-        // prevY = 0,
-        // currY = 0,
-        // dot_flag = false;
-
-      function init() {
-      //Getting all the elements
-        var htmlCanvas = document.getElementById("canvas");
-        var ctx = htmlCanvas.getContext("2d");
-        ctx.canvas.width  = window.innerWidth;
-        ctx.canvas.height = window.innerHeight;
-
-        htmlCanvas.addEventListener("mousemove", function (e) {
-          findxy("move", e)}, false);
-        htmlCanvas.addEventListener("mousedown", function (e) {
-          findxy("down", e)}, false);
-        htmlCanvas.addEventListener("mouseup", function (e) {
-            findxy("up", e)}, false);
-        htmlCanvas.addEventListener("mouseout", function (e) {
-            findxy("out", e)}, false);
-      }
-      // add listerners to touch as well, not just mouse
-
-      // define function to findxy
-
-      //define function to change colors
-
-      function draw(){
-        //The actual drawing
-        ctx.beginPath();
-        ctx.moveTo(prevX, prevY);
-        ctx.lineTo(currX, currY);
-        ctx.strokeStyle = "red"; //make it possible to change to other colors
-        ctx.lineWidth = 1; //make it possible to change line width
-        ctx.stroke();
-        ctx.closePath();
+    <style media="screen">
+      .colorPicker{
+        margin: 1rem;
       }
 
-       //define function to erase using space bar
-
-    </script>
+      canvas{
+        border: 1px solid #a3a5a8;
+        margin-left: 1rem;
+      }
+    </style>
   </head>
   <body>
-    <canvas id="canvas" style="border: 1px solid #a3a5a8;"></canvas>
+    <div>
+      <input type="color" class="colorPicker">
+      <!-- <span>Pick a color</span> -->
+    </div>
+    <canvas id="canvas"></canvas>
+
+    <script type="text/javascript">
+      // setting key varialbles up to make drawing dynamic
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      var x = 250;
+      var y = 250;
+      var radius = 10;
+      var maxradius = 30;
+      var minradius = 2;
+      var color = "red";
+
+      // setting canvas dimensions
+      ctx.canvas.width  = window.innerWidth*0.8;
+      ctx.canvas.height = window.innerHeight*0.8;
+
+      //The actual drawing function
+      function draw(){
+        ctx.beginPath();
+        ctx.arc(x,y,radius,0,Math.PI*2);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      window.addEventListener("mousemove", function (e) {
+        // console.log(e.pageX)
+        // console.log(e.pageY)
+        x = e.pageX;
+        y = e.pageY;
+        draw();
+      });
+
+      //add listerners to touch as well
+      window.addEventListener("touchmove", function (e){
+        x = e.pageX;
+        y = e.pageY;
+        draw();
+      })
+
+      //listener to change color
+      window.addEventListener("keyup", function (e) {
+        // console.log(e.keyCode);
+        if (e.keyCode == 66){
+          color = "blue";
+        }
+        if (e.keyCode == 71){
+          color = "green";
+        }
+        if (e.keyCode == 82){
+          color = "red";
+        }
+        if (e.keyCode == 89){
+          color = "yellow";
+        }
+        draw();
+      });
+
+      //listener to change stroke radius
+      window.addEventListener("keyup", function (e) {
+        if (e.keyCode == 38){ //up
+          if (radius <= maxradius){
+            radius += 4;
+          }
+        }
+
+        if (e.keyCode == 40){ //down
+          if (radius >= minradius){
+            radius -= 4;
+          }
+        }
+        draw();
+      });
+
+      //listener to clear canvas
+      window.addEventListener("keyup", function (e) {
+        if (e.keyCode == 32){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          color = "red";
+          radius = 10;
+        }
+        draw();
+      });
+
+      //color picker
+      var colorPicker = document.querySelector(".colorPicker");
+      colorPicker.addEventListener("change", function (e){
+        // console.log(e.target.value);
+        color = e.target.value;
+      });
+     
+    </script>
+
   </body>
 </html>
