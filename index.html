@@ -55,10 +55,12 @@
 
       //add listerners to touch as well
       window.addEventListener("touchmove", function (e){
-        x = e.pageX;
-        y = e.pageY;
+        // console.log(e.targetTouches[0].screenX)
+        // console.log(e.targetTouches[0].screenY)
+        x = e.targetTouches[0].screenX;
+        y = e.targetTouches[0].screenY;
         draw();
-      })
+    })
 
       //listener to change color
       window.addEventListener("keyup", function (e) {
@@ -110,7 +112,7 @@
         // console.log(e.target.value);
         color = e.target.value;
       });
-     
+
     </script>
 
   </body>
