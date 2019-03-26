@@ -6,12 +6,12 @@
     <title>Canvas</title>
     <style media="screen">
       .colorPicker{
-        margin: 1rem;
+        /* margin: 1rem; */
       }
 
       canvas{
         border: 1px solid #a3a5a8;
-        margin-left: 1rem;
+        /* margin-left: 1rem; */
       }
     </style>
   </head>
@@ -29,7 +29,7 @@
       var x = 250;
       var y = 250;
       var radius = 10;
-      var maxradius = 30;
+      var maxradius = 22;
       var minradius = 2;
       var color = "red";
 
@@ -45,7 +45,7 @@
         ctx.fill();
       }
 
-      window.addEventListener("mousemove", function (e) {
+      window.addEventListener("mousemove", function (e){
         // console.log(e.pageX)
         // console.log(e.pageY)
         x = e.pageX;
@@ -60,10 +60,10 @@
         x = e.targetTouches[0].screenX;
         y = e.targetTouches[0].screenY;
         draw();
-    })
+      });
 
       //listener to change color
-      window.addEventListener("keyup", function (e) {
+      window.addEventListener("keyup", function (e){
         // console.log(e.keyCode);
         if (e.keyCode == 66){
           color = "blue";
@@ -81,15 +81,15 @@
       });
 
       //listener to change stroke radius
-      window.addEventListener("keyup", function (e) {
+      window.addEventListener("keyup", function (e){
         if (e.keyCode == 38){ //up
-          if (radius <= maxradius){
+          if (radius < maxradius){
             radius += 4;
           }
         }
 
         if (e.keyCode == 40){ //down
-          if (radius >= minradius){
+          if (radius > minradius){
             radius -= 4;
           }
         }
@@ -97,7 +97,8 @@
       });
 
       //listener to clear canvas
-      window.addEventListener("keyup", function (e) {
+      /// on desktop - using space key
+      window.addEventListener("keyup", function (e){
         if (e.keyCode == 32){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           color = "red";
@@ -106,13 +107,20 @@
         draw();
       });
 
+      ///on mobile - changing orientation
+      if (window.innerWidth > window.innerHeight){
+        // console.log("looks like it's mobile!")
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        color = "red";
+        radius = 10;
+      }
+
       //color picker
       var colorPicker = document.querySelector(".colorPicker");
       colorPicker.addEventListener("change", function (e){
         // console.log(e.target.value);
         color = e.target.value;
       });
-
     </script>
 
   </body>
