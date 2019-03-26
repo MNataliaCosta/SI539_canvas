@@ -108,11 +108,11 @@
       });
 
       ///on mobile - changing orientation
-      if (window.innerWidth > window.innerHeight){
-        // console.log("looks like it's mobile!")
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        color = "red";
-        radius = 10;
+      if (screen.width > screen.height){
+        console.log("looks like it's mobile!");
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // color = "red";
+        // radius = 10;
       }
 
       //color picker
