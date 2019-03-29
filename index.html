@@ -21,7 +21,7 @@
       <input type="color" class="colorPicker">
       <!-- <span>Pick a color</span> -->
     </div>
-    
+
     <script type="text/javascript">
       // setting key varialbles up to make drawing dynamic
       var canvas = document.getElementById("canvas");
@@ -55,10 +55,11 @@
 
       //add listerners to touch as well
       window.addEventListener("touchmove", function (e){
+        console.log(e)
         // console.log(e.targetTouches[0].screenX)
         // console.log(e.targetTouches[0].screenY)
-        x = e.targetTouches[0].screenX;
-        y = e.targetTouches[0].screenY;
+        x = e.touches[0].screenX;
+        y = e.touches[0].screenY;
         draw();
       });
 
